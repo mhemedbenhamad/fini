@@ -1,0 +1,60 @@
+.container-fluid {
+    height: 100vh; /* 100% de la hauteur de la vue du navigateur */
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    background-image: url('../../assets/images/image.jpg'); /* Ajoutez le chemin de votre image */
+    background-size: cover; /* Couvre toute la surface de l'élément */
+    background-position: center; /* Centre l'image horizontalement et verticalement */
+    background-repeat: no-repeat;
+    background-color: #000;
+
+  }
+  .login-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Couleur de fond semi-transparente pour le formulaire */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="passwords"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .crtacc {
+    text-align: center;
+  }
+  

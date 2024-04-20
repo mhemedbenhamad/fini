@@ -89,4 +89,60 @@ router.delete('/:id', (req, res) => {
 });
 
 
+//Création du token
+router.post('/token', (req, res) => {
+  const { users, passwords} = req.body;
+  con.query('SELECT * FROM login WHERE users = ? AND passwords = ? ', [users, passwords], (error, results, fields) => {
+      if (error) {
+          console.error('Erreur lors de l\'exécution de la requête : ', error);
+          res.status(500).json({ message: 'Erreur interne du serveur' });
+          return;
+      }
+      if (results.length > 0) {
+          const user = results[0];
+          const token = jwt.sign({ username: user.users, role: user.role }, jwtSecret, { expiresIn: '1h' });
+          res.json({ token });
+      } else {
+          res.status(401).json({ message: 'utilisateur ou mot de passe incorrecte' });
+      }
+  });
+});
+
+// Middleware pour vérifier le token
+function verifyToken(req, res, next) {
+  const token = req.headers.authorization;
+  if (!token) {
+      return res.status(401).json({ message: 'Token manquant' });
+  }
+  jwt.verify(token, jwtSecret, (err, decoded) => {
+      if (err) {
+          return res.status(403).json({ message: 'Token invalide' });
+      }
+      req.user = decoded;
+      next();
+  });
+}
+
+// Route pour la page d'accueil
+router.get('/accueil', verifyToken, (req, res) => {
+  if (req.user.role === 'respnsable') {
+      res.send('Bienvenue sur la page d\'accueil (utilisateur normal)');
+  } else  {
+    res.status(403).json({ message: 'Accès interdit : vous n\'êtes pas utilisateur' });
+  }
+});
+
+// Route pour la page d'administration
+router.get('/admin', verifyToken, (req, res) => {
+  if (req.user.role === 'admin') {
+      res.send('Bienvenue sur la page d\'administration');
+  } else {
+      res.status(403).json({ message: 'Accès interdit : vous n\'êtes pas administrateur' });
+  }
+});
+
+module.exports = router;
+
+
+
 module.exports = router;
