@@ -23,7 +23,6 @@ const enterprise = require('../Api/enterprise');
 const etablissementScolaire = require('../Api/etablissementScolaire');
 const etudes = require('../Api/etudes');
 const infrastructure = require('../Api/infrastructure');
-const login = require('../Api/login');
 const maintenance = require('../Api/maintenance');
 const membreEquipe = require('../Api/membreEquipe');
 const membreProjet = require('../Api/membreProjet');
@@ -33,7 +32,6 @@ const reglementDefin = require('../Api/reglementDefin');
 const resources = require('../Api/resources');
 const responsableProjet = require('../Api/responsableProjet');
 const restaurant = require('../Api/restaurant');
-const role = require('../Api/role');
 const suivi = require('../Api/suivi');
 
 const app = express();
@@ -64,7 +62,6 @@ app.use('/entreprise_cons', enterprise);
 app.use('/etablissement_scolaire', etablissementScolaire);
 app.use('/etudes', etudes);
 app.use('/infrastructures', infrastructure);
-app.use('/login', login);
 app.use('/maintenance', maintenance);
 app.use('/membre_equipe', membreEquipe);
 app.use('/membre_projet', membreProjet);
@@ -74,7 +71,6 @@ app.use('/reglement_defin', reglementDefin);
 app.use('/ressources', resources);
 app.use('/responsable_projet', responsableProjet);
 app.use('/restaurant', restaurant);
-app.use('/roles', role);
 app.use('/suivi', suivi);
 
 // Utiliser les paramètres de connexion à la base de données depuis le fichier de configuration
