@@ -14,7 +14,7 @@ const config = require('./config');
 //charger les fichiers js
 const amenagement = require('../Api/amenagement');
 const batimentAdmin = require('../Api/batimentAdmin');
-const besoinsEtabSco = require('../Api/besoinsEtabSco');
+const besoins = require('../Api/besoinsEtabSco');
 const consignes = require('../Api/consignes');
 const construction = require('../Api/construction');
 const depouillement = require('../Api/depouillement');
@@ -27,12 +27,13 @@ const maintenance = require('../Api/maintenance');
 const membreEquipe = require('../Api/membreEquipe');
 const membreProjet = require('../Api/membreProjet');
 const problem = require('../Api/probleme');
-const project = require('../Api/project');
+const projet = require('../Api/project');
 const reglementDefin = require('../Api/reglementDefin');
 const resources = require('../Api/resources');
 const responsableProjet = require('../Api/responsableProjet');
 const restaurant = require('../Api/restaurant');
 const suivi = require('../Api/suivi');
+const login = require('../Api/login');
 
 const app = express();
 const port = 3000;
@@ -52,26 +53,27 @@ app.use((req, res, next) => {
 
 // Utiliser les routes
 app.use('/amenagement', amenagement);
-app.use('/batiment_admin', batimentAdmin);
-app.use('/besoins_etab_sco', besoinsEtabSco);
+app.use('/batimentadmin', batimentAdmin);
+app.use('/besoins', besoins);
 app.use('/consignes', consignes);
 app.use('/construction', construction);
 app.use('/depouillement', depouillement);
 app.use('/dortoir', dortoir);
-app.use('/entreprise_cons', enterprise);
-app.use('/etablissement_scolaire', etablissementScolaire);
+app.use('/entreprise', enterprise);
+app.use('/etablissementscolaire', etablissementScolaire);
 app.use('/etudes', etudes);
-app.use('/infrastructures', infrastructure);
+app.use('/infrastructure', infrastructure);
 app.use('/maintenance', maintenance);
-app.use('/membre_equipe', membreEquipe);
-app.use('/membre_projet', membreProjet);
+app.use('/membreequipe', membreEquipe);
+app.use('/membreprojet', membreProjet);
 app.use('/probleme', problem);
-app.use('/projet', project);
-app.use('/reglement_defin', reglementDefin);
+app.use('/projet', projet);
+app.use('/reglementdefin', reglementDefin);
 app.use('/ressources', resources);
-app.use('/responsable_projet', responsableProjet);
+app.use('/responsableprojet', responsableProjet);
 app.use('/restaurant', restaurant);
 app.use('/suivi', suivi);
+app.use('/login', login);
 
 // Utiliser les paramètres de connexion à la base de données depuis le fichier de configuration
 const con = mysql.createConnection(config.database);

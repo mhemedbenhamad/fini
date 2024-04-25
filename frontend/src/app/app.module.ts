@@ -12,6 +12,14 @@ import { TeamMemberDashboardComponent } from './team-member-dashboard/team-membe
 import { SchoolDashboardComponent } from './school-dashboard/school-dashboard.component';
 import { SidebarComponent } from './admin-dashboard/sidebar/sidebar.component';
 import { NavbarComponent } from './admin-dashboard/navbar/navbar.component';
+import { ListeDesProjetsComponent } from './admin-dashboard/liste-des-projets/liste-des-projets.component';
+import { ListeAmenagementComponent } from './admin-dashboard/liste-amenagement/liste-amenagement.component';
+import { ListeBatimentAdminComponent } from './admin-dashboard/liste-batiment-admin/liste-batiment-admin.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AjouterMembreComponent } from './membresEquipe/ajouter-membre/ajouter-membre.component';
+import { ModifierMembreComponent } from './membresEquipe/modifier-membre/modifier-membre.component';
+import { SupprimerMembreComponent } from './membresEquipe/supprimer-membre/supprimer-membre.component';
+import { AfficherMembreComponent } from './membresEquipe/afficher-membre/afficher-membre.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +30,21 @@ import { NavbarComponent } from './admin-dashboard/navbar/navbar.component';
     TeamMemberDashboardComponent,
     SchoolDashboardComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    ListeDesProjetsComponent,
+    ListeAmenagementComponent,
+    ListeBatimentAdminComponent,
+    AjouterMembreComponent,
+    ModifierMembreComponent,
+    SupprimerMembreComponent,
+    AfficherMembreComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

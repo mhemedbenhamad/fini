@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 export interface LoginResponse {
-  usernames: string;
+  username: string;
   role: string;
 }
 
@@ -16,8 +16,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(usernames: string, passwords: string): Observable<boolean> {
-    return this.http.post<LoginResponse>('http://localhost:3000/api/login', { usernames, passwords })
+  login(username: string, password: string): Observable<boolean> {
+    return this.http.post<LoginResponse>('http://localhost:3000/login/api/login', { username, password })
       .pipe(
         map((response: LoginResponse) => {
           this.loggedInUser = response;

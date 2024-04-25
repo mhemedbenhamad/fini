@@ -8,14 +8,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  usernames: string = '';
-  passwords: string = '';
+  username: string = '';
+  password: string = '';
   errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    this.authService.login(this.usernames, this.passwords)
+    this.authService.login(this.username, this.password)
       .subscribe(
         (loggedIn: boolean) => {
           if (loggedIn) {

@@ -41,7 +41,7 @@ router.get('/:id', (req, res) => {
 
 // Add a new project
 router.post('/', (req, res) => {
-  const { Id_Proj, Nom_Proj, Desc_Proj, Objectifs, Date_Deb_Proj, Date_Fin_Proj, Budget_Proj, Statut_Proj, Id_Infra_Str, Id_Res } = req.body;
+  const { Id_Proj, Nom_Proj, Desc_Proj, Objectifs, Date_Deb_Proj, Date_Fin_Proj, Budget_Proj, Statut_Proj, Id_Infra_Str } = req.body;
   const newProject = {
     Id_Proj,
     Nom_Proj,
@@ -51,8 +51,8 @@ router.post('/', (req, res) => {
     Date_Fin_Proj,
     Budget_Proj,
     Statut_Proj,
-    Id_Infra_Str,
-    Id_Res
+    Id_Infra_Str
+    
   };
   con.query('INSERT INTO projet SET ?', newProject, (err, result) => {
     if (err) {
@@ -66,7 +66,7 @@ router.post('/', (req, res) => {
 // Update a project
 router.put('/:id', (req, res) => {
   const projectId = req.params.id;
-  const { Nom_Proj, Desc_Proj, Objectifs, Date_Deb_Proj, Date_Fin_Proj, Budget_Proj, Statut_Proj, Id_Infra_Str, Id_Res } = req.body;
+  const { Nom_Proj, Desc_Proj, Objectifs, Date_Deb_Proj, Date_Fin_Proj, Budget_Proj, Statut_Proj, Id_Infra_Str } = req.body;
   const updatedProject = {
     Nom_Proj,
     Desc_Proj,
@@ -75,8 +75,7 @@ router.put('/:id', (req, res) => {
     Date_Fin_Proj,
     Budget_Proj,
     Statut_Proj,
-    Id_Infra_Str,
-    Id_Res
+    Id_Infra_Str
   };
   con.query('UPDATE projet SET ? WHERE Id_Proj = ?', [updatedProject, projectId], (err, result) => {
     if (err) {

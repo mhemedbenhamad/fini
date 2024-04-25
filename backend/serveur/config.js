@@ -6,6 +6,7 @@ module.exports = {
       user: 'root',
       password: '',
       database: 'bd_crm'
-    }
+    },
+
+    jwtSecret: 'vRga8INA1hyu59sa'
   };
-  
