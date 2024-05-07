@@ -1,0 +1,85 @@
+<div class="container">
+    <h2>Liste des bâtiments</h2>
+    <button class="btn btn-success mb-3" (click)="showAddForm()">Ajouter un bâtiment</button>
+    <div *ngIf="showForm" class="float-form">
+      <div class="card mb-3">
+        <div class="card-header">Ajouter un nouveau bâtiment</div>
+        <div class="card-body">
+          <form #buildingForm="ngForm" (ngSubmit)="addBuilding()">
+            <div class="form-group">
+              <label for="Id_Infra_Str">ID Infra</label>
+              <input type="text" class="form-control" id="Id_Infra_Str" name="Id_Infra_Str" [(ngModel)]="newBuildingData.Id_Infra_Str" required>
+            </div>
+            <div class="form-group">
+              <label for="Surface_Bat">Surface</label>
+              <input type="text" class="form-control" id="Surface_Bat" name="Surface_Bat" [(ngModel)]="newBuildingData.Surface_Bat" required>
+            </div>
+            <div class="form-group">
+              <label for="Nb_Etages">Nombre d'étages</label>
+              <input type="number" class="form-control" id="Nb_Etages" name="Nb_Etages" [(ngModel)]="newBuildingData.Nb_Etages" required>
+            </div>
+            <div class="form-group">
+              <label for="Usages">Usages</label>
+              <input type="text" class="form-control" id="Usages" name="Usages" [(ngModel)]="newBuildingData.Usages" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <button type="button" class="btn btn-secondary" (click)="cancelAdd()">Annuler</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id Infra</th>
+          <th>Surface</th>
+          <th>Nombre d'étages</th>
+          <th>Usages</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let building of buildings">
+          <td>{{ building.Id_Infra_Str }}</td>
+          <td>{{ building.Surface_Bat }}</td>
+          <td>{{ building.Nb_Etages }}</td>
+          <td>{{ building.Usages }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="showEditForm(building)">Modifier</button>
+            <button class="btn btn-danger" (click)="deleteBuilding(building.Id_Infra_Str)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div *ngIf="showEdit" class="float-form">
+    <div class="card mb-3">
+      <div class="card-header">Modifier le bâtiment</div>
+      <div class="card-body">
+        <form #editBuildingForm="ngForm" (ngSubmit)="updateBuilding()">
+          <div class="form-group">
+            <label for="editIdInfra">ID Infra</label>
+            <input type="text" class="form-control" id="editIdInfra" name="editIdInfra" [(ngModel)]="editedBuilding.Id_Infra_Str" disabled>
+          </div>
+          <div class="form-group">
+            <label for="editSurface">Surface</label>
+            <input type="text" class="form-control" id="editSurface" name="editSurface" [(ngModel)]="editedBuilding.Surface_Bat" required>
+          </div>
+          <div class="form-group">
+            <label for="editNbEtages">Nombre d'étages</label>
+            <input type="number" class="form-control" id="editNbEtages" name="editNbEtages" [(ngModel)]="editedBuilding.Nb_Etages" required>
+          </div>
+          <div class="form-group">
+            <label for="editUsages">Usages</label>
+            <input type="text" class="form-control" id="editUsages" name="editUsages" [(ngModel)]="editedBuilding.Usages" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

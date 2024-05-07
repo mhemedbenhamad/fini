@@ -29,14 +29,23 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { Id_Infra_Str, Surface_Bat, Nb_Etages, Usages } = req.body;
   const newBuilding = { Id_Infra_Str, Surface_Bat, Nb_Etages, Usages };
+
+  // Vérifiez si la connexion à la base de données est établie
+  if (!con) {
+    res.status(500).json({ error: 'Database connection failed' });
+    return;
+  }
+
   con.query('INSERT INTO batiment_admin SET ?', newBuilding, (err, result) => {
     if (err) {
-      res.status(500).json({ error: 'Failed to add administrative building' });
+      console.error('Error adding administrative building:', err);
+      res.status(500).json({ error: 'Failed to add administrative building', sqlError: err.message });
     } else {
       res.status(201).json({ message: 'Administrative building added successfully', buildingId: result.insertId });
     }
   });
 });
+
 
 // Delete an administrative building
 router.delete('/:id', (req, res) => {
@@ -48,6 +57,22 @@ router.delete('/:id', (req, res) => {
       res.status(404).json({ error: 'Administrative building not found' });
     } else {
       res.json({ message: 'Administrative building deleted successfully' });
+    }
+  });
+});
+
+// Update an administrative building
+router.put('/:id', (req, res) => {
+  const infraId = req.params.id;
+  const { Surface_Bat, Nb_Etages, Usages } = req.body;
+  const updatedBuilding = { Surface_Bat, Nb_Etages, Usages };
+  con.query('UPDATE batiment_admin SET ? WHERE Id_Infra_Str = ?', [updatedBuilding, infraId], (err, result) => {
+    if (err) {
+      res.status(500).json({ error: 'Failed to update administrative building' });
+    } else if (result.affectedRows === 0) {
+      res.status(404).json({ error: 'Administrative building not found' });
+    } else {
+      res.json({ message: 'Administrative building updated successfully' });
     }
   });
 });

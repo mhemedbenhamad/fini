@@ -1,0 +1,7 @@
+/* Style de l'icône */
+.nav-link i {
+    color: black; /* Couleur noire */
+    font-size: 24px; /* Taille de l'icône */
+    margin-right: 5px; /* Marge à droite de l'icône (optionnel) */
+  }
+  

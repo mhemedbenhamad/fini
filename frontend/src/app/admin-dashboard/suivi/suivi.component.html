@@ -1,0 +1,132 @@
+<div class="container mt-3">
+    <div class="mb-3">
+        <button class="btn btn-primary" (click)="toggleForm()">Ajouter</button>
+    </div>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Objet</th>
+          <th>Description</th>
+          <th>Date de début</th>
+          <th>Date de fin</th>
+          <th>Statut</th>
+          <th>Remarques</th>
+          <th>Id Projet</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let entry of suiviEntries">
+          <tr>
+            <td>{{ entry.Id_Suiv }}</td>
+            <td>{{ entry.Obj_Suiv }}</td>
+            <td>{{ entry.Desc_Suiv }}</td>
+            <td>{{ entry.Date_Deb_Suiv | date:'dd/MM/yyyy' }}</td>
+            <td>{{ entry.Date_Fin_Suiv | date:'dd/MM/yyyy' }}</td>            
+            <td>{{ entry.Statut_Suiv }}</td>
+            <td>{{ entry.Remarques_Suiv }}</td>
+            <td>{{ entry.Id_Proj }}</td>
+            <td>
+                <button class="btn btn-primary" (click)="editEntry(entry)">Modifier</button>
+                <button class="btn btn-danger" (click)="deleteSuiviEntry(entry.Id_Suiv)">Supprimer</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  
+    <div class="float-form" *ngIf="showForm">
+      <h2>Ajouter une entrée de suivi</h2>
+      <form (submit)="addSuiviEntry()">
+          <div class="mb-3">
+              <label>Id Suivi:</label>
+              <input class="form-control" type="number" name="Id_Suiv" [(ngModel)]="newSuiviEntry.Id_suiv" required>
+          </div>
+  
+          <div class="mb-3">
+              <label>Objet:</label>
+              <input class="form-control" type="text" name="objet" [(ngModel)]="newSuiviEntry.Obj_Suiv" required>
+          </div>
+  
+          <div class="mb-3">
+              <label>Description:</label>
+              <textarea class="form-control" name="description" [(ngModel)]="newSuiviEntry.Desc_Suiv" required></textarea>
+          </div>
+  
+          <div class="mb-3">
+              <label>Date de début:</label>
+              <input class="form-control" type="date" name="dateDebut" [(ngModel)]="newSuiviEntry.Date_Deb_Suiv" required>
+          </div>
+  
+          <div class="mb-3">
+              <label>Date de fin:</label>
+              <input class="form-control" type="date" name="dateFin" [(ngModel)]="newSuiviEntry.Date_Fin_Suiv">
+          </div>
+  
+          <div class="mb-3">
+              <label>Statut:</label>
+              <input class="form-control" type="text" name="statut" [(ngModel)]="newSuiviEntry.Statut_Suiv">
+          </div>
+  
+          <div class="mb-3">
+              <label>Remarques:</label>
+              <textarea class="form-control" name="remarques" [(ngModel)]="newSuiviEntry.Remarques_Suiv"></textarea>
+          </div>
+  
+          <div class="mb-3">
+              <label>Id Projet:</label>
+              <input class="form-control" type="number" name="idProjet" [(ngModel)]="newSuiviEntry.Id_Proj" required>
+          </div>
+  
+          <button class="btn btn-primary" type="submit">Ajouter</button>
+          <button type="button" class="btn btn-secondary" (click)="cancelForm()">Annuler</button>
+      </form>
+  </div>
+  
+  
+    <div class="float-form" *ngIf="isEditMode">
+        <h2>Modifier une entrée de suivi</h2>
+        <form (submit)="updateSuiviEntry(selectedSuiviEntry)">
+            <input type="hidden" name="id" [(ngModel)]="selectedSuiviEntry.Id_Suiv">
+      
+          <div class="mb-3">
+            <label>Objet:</label>
+            <input class="form-control" type="text" name="objet" [(ngModel)]="selectedSuiviEntry.Obj_Suiv" required>
+          </div>
+      
+          <div class="mb-3">
+            <label>Description:</label>
+            <textarea class="form-control" name="description" [(ngModel)]="selectedSuiviEntry.Desc_Suiv" required></textarea>
+          </div>
+      
+          <div class="mb-3">
+            <label>Date de début:</label>
+            <input class="form-control" type="date" name="dateDebut" [(ngModel)]="selectedSuiviEntry.Date_Deb_Suiv" required>
+          </div>
+      
+          <div class="mb-3">
+            <label>Date de fin:</label>
+            <input class="form-control" type="date" name="dateFin" [(ngModel)]="selectedSuiviEntry.Date_Fin_Suiv">
+          </div>
+      
+          <div class="mb-3">
+            <label>Statut:</label>
+            <input class="form-control" type="text" name="statut" [(ngModel)]="selectedSuiviEntry.Statut_Suiv">
+          </div>
+      
+          <div class="mb-3">
+            <label>Remarques:</label>
+            <textarea class="form-control" name="remarques" [(ngModel)]="selectedSuiviEntry.Remarques_Suiv"></textarea>
+          </div>
+      
+          <div class="mb-3">
+            <label>Id Projet:</label>
+            <input class="form-control" type="number" name="idProjet" [(ngModel)]="selectedSuiviEntry.Id_Proj" required>
+          </div>
+      
+          <button class="btn btn-primary" type="submit">Modifier</button>
+        </form>
+      </div>
+      

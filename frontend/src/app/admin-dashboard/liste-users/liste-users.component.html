@@ -1,0 +1,85 @@
+<!-- liste-users.component.html -->
+<div class="container">
+  <h2>Liste des Utilisateurs</h2>
+
+  <!-- Afficher le formulaire d'ajout -->
+  <button class="btn btn-primary" (click)="afficherFormulaireAjout = true">Ajouter un Utilisateur</button>
+
+<!-- Formulaire d'ajout -->
+<div *ngIf="afficherFormulaireAjout" class="floating-form">
+  <h3>Ajouter un Utilisateur <span class="close-icon" (click)="annulerAjout()">✖</span></h3>
+  <form (submit)="ajouterUtilisateur()">
+    <div class="form-group">
+      <label for="username">Nom d'utilisateur:</label>
+      <input type="text" class="form-control" id="username" name="username" [(ngModel)]="nouveauUtilisateur.username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Mot de passe:</label>
+      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="nouveauUtilisateur.password" required>
+    </div>
+    <div class="form-group">
+      <label for="role">Rôle:</label>
+      <select class="form-control" id="role" name="role" [(ngModel)]="nouveauUtilisateur.role" required>
+        <option value="admin">Admin</option>
+        <option value="responsable">Responsable</option>
+        <option value="member_equipe">Membre d'équipe</option>
+        <option value="school">School</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+    <button type="button" class="btn btn-secondary" (click)="annulerAjout()">Annuler</button>
+  </form>
+</div>
+
+
+  <!-- Tableau des utilisateurs -->
+  <table class="table mt-3">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Nom d'utilisateur</th>
+        <th scope="col">Mot de passe</th>
+        <th scope="col">Rôle</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let utilisateur of utilisateurs">
+        <td>{{ utilisateur.id_log }}</td>
+        <td>{{ utilisateur.username }}</td>
+        <td>{{ utilisateur.password }}</td>
+        <td>{{ utilisateur.role }}</td>
+        <td>
+          <button class="btn btn-info" (click)="afficherFormulaireModification = true; utilisateurSelectionne = utilisateur">Modifier</button>
+          <button class="btn btn-danger" (click)="supprimerUtilisateur(utilisateur.id_log)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulaire de modification -->
+<div *ngIf="afficherFormulaireModification && utilisateurSelectionne" class="floating-form">
+  <h3>Modifier l'Utilisateur <span class="close-icon" (click)="annulerModification()">✖</span></h3>
+  <form (submit)="modifierUtilisateur()">
+    <div class="form-group">
+      <label for="username">Nom d'utilisateur:</label>
+      <input type="text" class="form-control" id="username" name="username" [(ngModel)]="utilisateurSelectionne.username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Mot de passe:</label>
+      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="utilisateurSelectionne.password" required>
+    </div>
+    <div class="form-group">
+      <label for="role">Rôle:</label>
+      <select class="form-control" id="role" name="role" [(ngModel)]="utilisateurSelectionne.role" required>
+        <option value="admin">Admin</option>
+        <option value="responsable">Responsable</option>
+        <option value="member_equipe">Member_quipe</option>
+        <option value="school">School</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Modifier</button>
+    <button type="button" class="btn btn-secondary" (click)="annulerModification()">Annuler</button>
+  </form>
+</div>
+

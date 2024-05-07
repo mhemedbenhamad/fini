@@ -1,0 +1,24 @@
+<!-- amenagement.component.html -->
+
+<div *ngIf="amenities">
+  <h2>Amenities</h2>
+  <ul>
+    <li *ngFor="let amenity of amenities">
+      {{ amenity.name }} <!-- Replace with actual properties -->
+      <button (click)="deleteAmenity(amenity.id)">Delete</button>
+      <button (click)="editAmenity(amenity)">Edit</button>
+    </li>
+  </ul>
+</div>
+
+<button (click)="showAddForm = true">Add Amenity</button>
+
+<div *ngIf="showAddForm || showEditForm">
+  <h2>{{ amenity ? 'Edit Amenity' : 'Add Amenity' }}</h2>
+  <form (ngSubmit)="submitForm()" #amenityForm="ngForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required [(ngModel)]="amenity.name">
+    <button type="submit">{{ amenity ? 'Save' : 'Add' }}</button>
+    <button type="button" (click)="cancelForm()">Cancel</button>
+  </form>
+</div>

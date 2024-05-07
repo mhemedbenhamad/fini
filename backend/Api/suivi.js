@@ -37,6 +37,8 @@ router.post('/', (req, res) => {
   });
 });
 
+
+
 // Delete a suivi entry
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
@@ -50,5 +52,35 @@ router.delete('/:id', (req, res) => {
     }
   });
 });
+
+// Update a suivi entry
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const updatedSuiviEntry = req.body;
+  con.query('UPDATE suivi SET ? WHERE Id_Suiv = ?', [updatedSuiviEntry, id], (err, result) => {
+    if (err) {
+      res.status(500).json({ error: 'Failed to update suivi entry' });
+    } else if (result.affectedRows === 0) {
+      res.status(404).json({ error: 'Suivi entry not found' });
+    } else {
+      res.json({ message: 'Suivi entry updated successfully' });
+    }
+  });
+});
+
+// Get a suivi entry by ID
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+  con.query('SELECT * FROM suivi WHERE Id_Suiv = ?', id, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: 'Failed to fetch suivi entry' });
+    } else if (results.length === 0) {
+      res.status(404).json({ error: 'Suivi entry not found' });
+    } else {
+      res.json(results[0]); // Assuming there's only one matching entry
+    }
+  });
+});
+
 
 module.exports = router;

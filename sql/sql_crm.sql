@@ -124,8 +124,8 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bd_crm`.`login` (
   `id_log` INT(11) NOT NULL AUTO_INCREMENT,
-  `users` VARCHAR(45) NULL DEFAULT NULL,
-  `passwords` VARCHAR(45) NULL DEFAULT NULL,
+  `username` VARCHAR(45) NULL DEFAULT NULL,
+  `password` VARCHAR(45) NULL DEFAULT NULL,
   `role` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id_log`))
 ENGINE = InnoDB

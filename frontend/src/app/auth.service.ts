@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   isMemberEquipe(): boolean {
-    return this.loggedInUser?.role === 'membre_equipe';
+    return this.loggedInUser?.role === 'member_equipe';
   }
 
   isSchool(): boolean {

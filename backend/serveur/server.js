@@ -4,8 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
-
 
 
 // Charger le fichier de configuration
@@ -14,7 +12,7 @@ const config = require('./config');
 //charger les fichiers js
 const amenagement = require('../Api/amenagement');
 const batimentAdmin = require('../Api/batimentAdmin');
-const besoins = require('../Api/besoinsEtabSco');
+const besoinsEtabSco = require('../Api/besoinsEtabSco');
 const consignes = require('../Api/consignes');
 const construction = require('../Api/construction');
 const depouillement = require('../Api/depouillement');
@@ -23,17 +21,18 @@ const enterprise = require('../Api/enterprise');
 const etablissementScolaire = require('../Api/etablissementScolaire');
 const etudes = require('../Api/etudes');
 const infrastructure = require('../Api/infrastructure');
+const login = require('../Api/login');
 const maintenance = require('../Api/maintenance');
 const membreEquipe = require('../Api/membreEquipe');
 const membreProjet = require('../Api/membreProjet');
 const problem = require('../Api/probleme');
-const projet = require('../Api/project');
+const project = require('../Api/project');
 const reglementDefin = require('../Api/reglementDefin');
 const resources = require('../Api/resources');
 const responsableProjet = require('../Api/responsableProjet');
 const restaurant = require('../Api/restaurant');
 const suivi = require('../Api/suivi');
-const login = require('../Api/login');
+
 
 const app = express();
 const port = 3000;
@@ -53,27 +52,28 @@ app.use((req, res, next) => {
 
 // Utiliser les routes
 app.use('/amenagement', amenagement);
-app.use('/batimentadmin', batimentAdmin);
-app.use('/besoins', besoins);
+app.use('/batiment_admin', batimentAdmin);
+app.use('/besoins_etab_sco', besoinsEtabSco);
 app.use('/consignes', consignes);
 app.use('/construction', construction);
 app.use('/depouillement', depouillement);
 app.use('/dortoir', dortoir);
-app.use('/entreprise', enterprise);
-app.use('/etablissementscolaire', etablissementScolaire);
+app.use('/entreprise_cons', enterprise);
+app.use('/etablissement_scolaire', etablissementScolaire);
 app.use('/etudes', etudes);
-app.use('/infrastructure', infrastructure);
+app.use('/infrastructures', infrastructure);
+app.use('/login', login);
 app.use('/maintenance', maintenance);
-app.use('/membreequipe', membreEquipe);
-app.use('/membreprojet', membreProjet);
+app.use('/membre_equipe', membreEquipe);
+app.use('/membre_projet', membreProjet);
 app.use('/probleme', problem);
-app.use('/projet', projet);
-app.use('/reglementdefin', reglementDefin);
+app.use('/project', project);
+app.use('/reglement_defin', reglementDefin);
 app.use('/ressources', resources);
-app.use('/responsableprojet', responsableProjet);
+app.use('/responsable_projet', responsableProjet);
 app.use('/restaurant', restaurant);
 app.use('/suivi', suivi);
-app.use('/login', login);
+
 
 // Utiliser les paramètres de connexion à la base de données depuis le fichier de configuration
 const con = mysql.createConnection(config.database);
@@ -91,6 +91,4 @@ con.connect(err => {
 app.listen(port, () => {
   console.log(`Serveur en écoute sur le port ${port}`);
 });
-
-
 

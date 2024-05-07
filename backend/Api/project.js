@@ -14,6 +14,20 @@ con.connect((err) => {
   console.log('MySQL projet connecté');
 });
 
+
+
+// Count projects
+router.get('/count', (req, res) => {
+  con.query('SELECT COUNT(Id_Proj) AS projectCount FROM projet', (err, results) => {
+    if (err) {
+      res.status(500).json({ error: 'Failed to count projects' });
+    } else {
+      const projectCount = results[0].projectCount;
+      res.json({ count: projectCount });
+    }
+  });
+});
+
 // Get all projects
 router.get('/', (req, res) => {
   con.query('SELECT * FROM projet', (err, results) => {
@@ -41,7 +55,7 @@ router.get('/:id', (req, res) => {
 
 // Add a new project
 router.post('/', (req, res) => {
-  const { Id_Proj, Nom_Proj, Desc_Proj, Objectifs, Date_Deb_Proj, Date_Fin_Proj, Budget_Proj, Statut_Proj, Id_Infra_Str } = req.body;
+  const { Id_Proj, Nom_Proj, Desc_Proj, Objectifs, Date_Deb_Proj, Date_Fin_Proj, Budget_Proj, Statut_Proj, Id_Infra_Str} = req.body;
   const newProject = {
     Id_Proj,
     Nom_Proj,
@@ -66,7 +80,7 @@ router.post('/', (req, res) => {
 // Update a project
 router.put('/:id', (req, res) => {
   const projectId = req.params.id;
-  const { Nom_Proj, Desc_Proj, Objectifs, Date_Deb_Proj, Date_Fin_Proj, Budget_Proj, Statut_Proj, Id_Infra_Str } = req.body;
+  const { Nom_Proj, Desc_Proj, Objectifs, Date_Deb_Proj, Date_Fin_Proj, Budget_Proj, Statut_Proj, Id_Infra_Str} = req.body;
   const updatedProject = {
     Nom_Proj,
     Desc_Proj,
@@ -76,6 +90,7 @@ router.put('/:id', (req, res) => {
     Budget_Proj,
     Statut_Proj,
     Id_Infra_Str
+    
   };
   con.query('UPDATE projet SET ? WHERE Id_Proj = ?', [updatedProject, projectId], (err, result) => {
     if (err) {
@@ -101,5 +116,8 @@ router.delete('/:id', (req, res) => {
     }
   });
 });
+
+
+
 
 module.exports = router;

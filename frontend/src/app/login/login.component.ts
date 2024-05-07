@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   username: string = '';
-  password: string = '';
+  password: string = ''; // Make sure password is defined as a string
   errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -25,7 +25,7 @@ export class LoginComponent {
             } else if (this.authService.isResponsable()) {
               this.router.navigate(['/responsable']);
             } else if (this.authService.isMemberEquipe()) {
-              this.router.navigate(['/membre-equipe']);
+              this.router.navigate(['/member-equipe']);
             } else if (this.authService.isSchool()) {
               this.router.navigate(['/school']);
             } else {

@@ -1,0 +1,108 @@
+<div class="container mt-12">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn btn-success mb-3" (click)="toggleAddForm()">Ajouter une infrastructure</button>
+  
+        <div class="card floating-form" *ngIf="addingInfrastructure || successMessage || errorMessage">
+          <div class="card-body">
+            <div *ngIf="!successMessage && !errorMessage">
+              <h5 class="card-title">Ajouter une infrastructure</h5>
+              <form (ngSubmit)="addInfrastructure()">
+                <div class="form-group">
+                  <label for="nom">Nom</label>
+                  <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="newInfrastructure.Nom_Infra_Str" required>
+                </div>
+                <div class="form-group">
+                  <label for="adresse">Adresse</label>
+                  <input type="text" class="form-control" id="adresse" name="adresse" [(ngModel)]="newInfrastructure.Adr_Infra_Str" required>
+                </div>
+                <div class="form-group">
+                  <label for="directeur">Directeur</label>
+                  <input type="text" class="form-control" id="directeur" name="directeur" [(ngModel)]="newInfrastructure.Directeur_Infra_Str" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+                <button class="btn btn-secondary" (click)="resetForm()">Annuler</button>
+              </form>
+            </div>
+            <!-- Success and error messages -->
+            <div *ngIf="successMessage" class="alert alert-success mt-3" role="alert">
+              {{ successMessage }}
+              <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+              {{ errorMessage }}
+              <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Form for modifying infrastructure -->
+        <div class="card floating-form" *ngIf="selectedInfrastructure.Id_Infra_Str">
+          <div class="card-body">
+            <h5 class="card-title">Modifier une infrastructure</h5>
+            <form (ngSubmit)="updateInfrastructure()">
+              <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="selectedInfrastructure.Nom_Infra_Str" required>
+              </div>
+              <div class="form-group">
+                <label for="adresse">Adresse</label>
+                <input type="text" class="form-control" id="adresse" name="adresse" [(ngModel)]="selectedInfrastructure.Adr_Infra_Str" required>
+              </div>
+              <div class="form-group">
+                <label for="directeur">Directeur</label>
+                <input type="text" class="form-control" id="directeur" name="directeur" [(ngModel)]="selectedInfrastructure.Directeur_Infra_Str" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Modifier</button>
+              <button class="btn btn-secondary" (click)="resetForm()">Annuler</button>
+            </form>
+  
+            <!-- Success and error messages -->
+            <div *ngIf="successMessage" class="alert alert-success mt-3" role="alert">
+              {{ successMessage }}
+              <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+              {{ errorMessage }}
+              <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Table to display infrastructures -->
+      <div class="col-md-8">
+        <h3>Liste des infrastructures</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Adresse</th>
+              <th scope="col">Directeur</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let infrastructure of infrastructures">
+              <td>{{ infrastructure.Nom_Infra_Str }}</td>
+              <td>{{ infrastructure.Adr_Infra_Str }}</td>
+              <td>{{ infrastructure.Directeur_Infra_Str }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="selectInfrastructure(infrastructure)">Modifier</button>
+                <button class="btn btn-sm btn-danger" (click)="deleteInfrastructure(infrastructure.Id_Infra_Str)">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

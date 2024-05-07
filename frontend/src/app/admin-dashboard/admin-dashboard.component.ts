@@ -12,4 +12,14 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toggleFullScreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }
+
 }

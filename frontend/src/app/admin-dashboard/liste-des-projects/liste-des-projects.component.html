@@ -1,0 +1,154 @@
+
+<div class="row ">
+<div>
+  <h2>Liste des Projets</h2>
+  <button (click)="showAddForm()" class="btn btn-sm btn-success">Ajouter projet</button>
+  <!-- Formulaire flottant pour ajouter un nouveau projet -->
+  <div class="floating-form" *ngIf="showAddProjectForm">
+  <form (ngSubmit)="addProject()">
+  <!-- Champs pour les données du projet -->
+  <div class="form-group">
+  <label for="idProj">ID Projet</label>
+  <input type="text" class="form-control" id="idProj" name="idProj" [(ngModel)]="newProject.Id_Proj" required>
+  </div>
+  <div class="form-group">
+  <label for="nomProj">Nom du Projet</label>
+  <input type="text" class="form-control" id="nomProj" name="nomProj" [(ngModel)]="newProject.Nom_Proj" required>
+  </div>
+  <div class="form-group">
+  <label for="descProj">Description</label>
+  <textarea class="form-control" id="descProj" name="descProj" [(ngModel)]="newProject.Desc_Proj"></textarea>
+  </div>
+  <div class="form-group">
+  <label for="objectifs">Objectifs</label>
+  <textarea class="form-control" id="objectifs" name="objectifs" [(ngModel)]="newProject.Objectifs"></textarea>
+  </div>
+  <div class="form-group">
+  <label for="dateDebProj">Date de Début</label>
+  <input type="date" class="form-control" id="dateDebProj" name="dateDebProj" [(ngModel)]="newProject.Date_Deb_Proj" required>
+  </div>
+  <div class="form-group">
+  <label for="dateFinProj">Date de Fin</label>
+  <input type="date" class="form-control" id="dateFinProj" name="dateFinProj" [(ngModel)]="newProject.Date_Fin_Proj" required>
+  </div>
+  <div class="form-group">
+  <label for="budgetProj">Budget</label>
+  <input type="number" class="form-control" id="budgetProj" name="budgetProj" [(ngModel)]="newProject.Budget_Proj">
+  </div>
+  <div class="form-group">
+  <label for="statutProj">Statut</label>
+  <input type="text" class="form-control" id="statutProj" name="statutProj" [(ngModel)]="newProject.Statut_Proj">
+  </div>
+  <div class="form-group">
+  <label for="infraStr">Infrastructure</label>
+  <input type="text" class="form-control" id="infraStr" name="infraStr" [(ngModel)]="newProject.Id_Infra_Str">
+  </div>
+
+  
+  <!-- Boutons pour soumettre ou annuler l'ajout -->
+  <div class="form-group">
+  <button type="submit" class="btn btn-primary">Enregistrer</button>
+  <button type="button" (click)="cancelAdd()" class="btn btn-warning">Annuler</button>
+  </div>
+  </form>
+  </div>
+  <div *ngIf="projects.length > 0; else noProjects">
+    
+    <table class="table table-striped">
+      <!-- En-têtes de colonnes -->
+
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nom du Projet</th>
+          <th>Description</th>
+          <th>Objectifs</th>
+          <th>Date de Début</th>
+          <th>Date de Fin</th>
+          <th>Budget</th>
+          <th>Statut</th>
+          <th>Infrastructure</th>
+          <th>Actions</th>
+          <!-- Ajoutez d'autres en-têtes de colonne au besoin -->
+        </tr>
+      </thead>
+      <!-- Données de la table -->
+      <tbody>
+        <tr *ngFor="let project of projects">
+          <td>{{ project.Id_Proj }}</td>
+          <td>{{ project.Nom_Proj }}</td>
+          <td>{{ project.Desc_Proj }}</td>
+          <td>{{ project.Objectifs }}</td>
+          <td>{{ project.Date_Deb_Proj | date:'dd/MM/yyyy' }}</td>
+          <td>{{ project.Date_Fin_Proj | date:'dd/MM/yyyy' }}</td>
+          <td>{{ project.Budget_Proj }}</td>
+          <td>{{ project.Statut_Proj }}</td>
+          <td>{{ project.Id_Infra_Str }}</td>
+          <td>{{ project.Id_Res }}</td>
+          <td>
+            <button (click)="editProject(project)" class="btn btn-sm btn-primary">Modifier</button>
+            <button (click)="deleteProject(project)" class="btn btn-sm btn-danger">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+
+
+
+
+
+
+  </div>
+  <ng-template #noProjects>
+    <p>Aucun projet disponible pour le moment.</p>
+  </ng-template>
+</div>
+
+
+<!-- Formulaire de modification -->
+<div class="floating-form" *ngIf="showEditForm">
+<form (ngSubmit)="submitEdit()">
+<div class="form-group">
+<label for="idProj">ID Projet</label>
+<input type="text" class="form-control" id="idProj" name="idProj" [(ngModel)]="selectedProject.Id_Proj" disabled>
+</div>
+<div class="form-group">
+<label for="nomProj">Nom du Projet</label>
+<input type="text" class="form-control" id="nomProj" name="nomProj" [(ngModel)]="selectedProject.Nom_Proj">
+</div>
+<div class="form-group">
+<label for="descProj">Description</label>
+<textarea class="form-control" id="descProj" name="descProj" [(ngModel)]="selectedProject.Desc_Proj"></textarea>
+</div>
+<div class="form-group">
+<label for="objectifs">Objectifs</label>
+<textarea class="form-control" id="objectifs" name="objectifs" [(ngModel)]="selectedProject.Objectifs"></textarea>
+</div>
+<div class="form-group">
+<label for="dateDebProj">Date de Début</label>
+<input type="date" class="form-control" id="dateDebProj" name="dateDebProj" [(ngModel)]="selectedProject.Date_Deb_Proj">
+</div>
+<div class="form-group">
+<label for="dateFinProj">Date de Fin</label>
+<input type="date" class="form-control" id="dateFinProj" name="dateFinProj" [(ngModel)]="selectedProject.Date_Fin_Proj">
+</div>
+<div class="form-group">
+<label for="budgetProj">Budget</label>
+<input type="number" class="form-control" id="budgetProj" name="budgetProj" [(ngModel)]="selectedProject.Budget_Proj">
+</div>
+<div class="form-group">
+<label for="statutProj">Statut</label>
+<input type="text" class="form-control" id="statutProj" name="statutProj" [(ngModel)]="selectedProject.Statut_Proj">
+</div>
+<div class="form-group">
+<label for="infraStr">Infrastructure</label>
+<input type="text" class="form-control" id="infraStr" name="infraStr" [(ngModel)]="selectedProject.Id_Infra_Str">
+</div>
+
+<button type="submit" class="btn btn-primary">Enregistrer</button>
+<button type="button" class="btn btn-secondary" (click)="cancelEdit()">Annuler</button>
+</form>
+</div>
+
+<router-outlet></router-outlet>
