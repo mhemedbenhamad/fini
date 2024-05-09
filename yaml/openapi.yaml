@@ -1,0 +1,236 @@
+openapi: 3.0.3
+info:
+  title: Api Rest centre régional de maintenance de kébili
+  contact:
+    name: Benhamad Mhemed & Khaled Mokhtar
+    email: benhamad.mhemed@gmail.com
+  version: 1.0.1
+
+servers:
+  - url: http://localhost:3000
+    description: routes backend
+
+
+# les routes 
+paths:
+
+#login /////  
+  /login/user/data:
+    get:
+      tags:
+        - authentification
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserData"
+  /login/user/add:
+    post:
+      tags:
+        - authentification
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/UserAdd"
+      responses:
+        '200':
+          description: ajouté avec sucée
+          
+  /login/user/delete/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    delete:
+      tags:
+        - authentification
+      responses:
+        '200':
+           description: supprimé avec succée
+              
+  /login/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      tags:
+        - authentification
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/UserAdd"
+      responses:
+        '200':
+           description: modifié avec succée
+       
+
+#membre /////
+  /membre_equipe/membre_equipe_et_login:
+    get:
+      tags:
+        - membreEquipe
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/membreData"
+  /membre_equipe/add:
+    post:
+      tags:
+        - membreEquipe
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/membreAdd"
+      responses:
+        '200':
+          description: ajouté avec sucée
+          
+  /membre_equipe/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    delete:
+      tags:
+        - membreEquipe
+      responses:
+        '200':
+           description: supprimé avec succée
+              
+  /membre_equipe/update/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      tags:
+        - membreEquipe
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/membreAdd"
+      responses:
+        '200':
+           description: modifié avec succée
+       
+  /membre_equipe/membre_equipe_login/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - membreEquipe
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                  $ref: "#/components/schemas/membreData"    
+
+components:
+  schemas:
+    
+    UserData:
+      type: object
+      properties:
+        id_log:
+          type: integer
+        username:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+          
+    UserAdd:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+
+
+    membreData:
+      type: object
+      properties:
+        Id_Mem_Eq:
+          type: integer
+        Nom_Mem_Eq:
+          type: string
+        Pren_Mem_Eq:
+          type: string
+        Adr_Mem_Eq: 
+          type: string
+        Email_Mem_Eq: 
+          type: string
+        Tel_Mem_Eq: 
+          type: string
+        Poste_Mem_eq: 
+          type: string
+        login_id_log:
+          type: integer
+        username: 
+          type: string
+        password: 
+          type: string
+        role: 
+          type: string
+          
+    membreAdd:
+      type: object
+      properties:
+        Nom_Mem_Eq:
+          type: string
+        Pren_Mem_Eq:
+          type: string
+        Adr_Mem_Eq: 
+          type: string
+        Email_Mem_Eq: 
+          type: string
+        Tel_Mem_Eq: 
+          type: string
+        Poste_Mem_eq: 
+          type: string
+        login_id_log:
+          type: integer
+          
+        
+
+tags:
+  - name: authentification
+    description: Authentication operations
+  - name: membreEquipe
+    description: les membres de l'équipe pour un projet
