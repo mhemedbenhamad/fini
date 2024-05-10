@@ -3,7 +3,7 @@ info:
   title: Api Rest centre régional de maintenance de kébili
   contact:
     name: Benhamad Mhemed & Khaled Mokhtar
-    email: benhamad.mhemed@gmail.com
+    email: mhemed.benhamad@gmail.com
   version: 1.0.1
 
 servers:
@@ -81,7 +81,7 @@ paths:
   /membre_equipe/membre_equipe_et_login:
     get:
       tags:
-        - membreEquipe
+        - membres Equipe
       responses:
         '200':
           description: OK
@@ -94,7 +94,7 @@ paths:
   /membre_equipe/add:
     post:
       tags:
-        - membreEquipe
+        - membres Equipe
       requestBody:
         required: true
         content:
@@ -114,7 +114,7 @@ paths:
           type: integer
     delete:
       tags:
-        - membreEquipe
+        - membres Equipe
       responses:
         '200':
            description: supprimé avec succée
@@ -128,7 +128,7 @@ paths:
           type: integer
     put:
       tags:
-        - membreEquipe
+        - membres Equipe
       requestBody:
         required: true
         content:
@@ -148,7 +148,7 @@ paths:
           type: integer
     get:
       tags:
-        - membreEquipe
+        - membres Equipe
       responses:
         '200':
           description: OK
@@ -157,6 +157,253 @@ paths:
               schema:
                   $ref: "#/components/schemas/membreData"    
 
+  /project:
+    get:
+      tags:
+        - projets
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/projectData"
+
+    post:
+      tags:
+        - projets
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/projectAdd"
+      responses:
+        '200':
+          description: ajouté avec sucée
+    
+  /project/{id}:      
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      tags:
+        - projets
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/projectAdd"
+      responses:
+        '200':
+           description: modifié avec succée
+           
+    get:
+      tags:
+        - projets
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                  $ref: "#/components/schemas/projectData"  
+    delete:
+      tags:
+        - projets
+      responses:
+        '200':
+           description: supprimé avec succée
+           
+  /infrastructures:
+    get:
+      tags:
+        - infrastructures
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/infraData"
+
+    post:
+      tags:
+        - infrastructures
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/infraAdd"
+      responses:
+        '200':
+          description: ajouté avec sucée
+    
+  /infrastructures/{id}:      
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      tags:
+        - infrastructures
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/infraAdd"
+      responses:
+        '200':
+           description: modifié avec succée
+           
+    get:
+      tags:
+        - infrastructures
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                  $ref: "#/components/schemas/infraData"  
+    delete:
+      tags:
+        - infrastructures
+      responses:
+        '200':
+           description: supprimé avec succée
+         
+         
+  /batiment_admin:
+    get:
+      tags:
+        - batiments administratives
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/bat"
+
+    post:
+      tags:
+        - batiments administratives
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/bat"
+      responses:
+        '200':
+          description: ajouté avec sucée
+    
+  /batiment_admin/{id}:      
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      tags:
+        - batiments administratives
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/modifbat"
+      responses:
+        '200':
+           description: modifié avec succée
+           
+    delete:
+      tags:
+        - batiments administratives
+      responses:
+        '200':
+           description: supprimé avec succée
+  
+  /suivi:
+    get:
+      tags:
+        - suivis
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/suiviData"
+
+    post:
+      tags:
+        - suivis
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/suiviAdd"
+      responses:
+        '200':
+          description: ajouté avec sucée
+    
+  /suivi/{id}:      
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    put:
+      tags:
+        - suivis
+      requestBody:
+        required: true
+        content:
+            "application/x-www-form-urlencoded":
+              schema:
+                  $ref: "#/components/schemas/suiviAdd"
+      responses:
+        '200':
+           description: modifié avec succée
+           
+    get:
+      tags:
+        - suivis
+      responses:
+        '200':
+          description: OK
+          content:
+            "application/json":
+              schema:
+                  $ref: "#/components/schemas/suiviData"  
+    delete:
+      tags:
+        - suivis
+      responses:
+        '200':
+           description: supprimé avec succée
+                             
 components:
   schemas:
     
@@ -227,10 +474,140 @@ components:
         login_id_log:
           type: integer
           
-        
-
+    projectData:
+      type: object
+      properties:
+        Id_Proj:
+           type: integer
+        Nom_Proj: 
+           type: string
+        Desc_Proj:
+           type: string
+        Objectifs:
+           type: string
+        Date_Deb_Proj: 
+           type: string
+           format: date
+        Date_Fin_Proj: 
+           type: string
+           format: date
+        Budget_Proj: 
+           type: number
+        Statut_Proj: 
+           type: string
+        Id_Infra_Str: 
+           type: integer
+           
+    projectAdd:
+      type: object
+      properties:
+        Nom_Proj: 
+           type: string
+        Desc_Proj:
+           type: string
+        Objectifs:
+           type: string
+        Date_Deb_Proj: 
+           type: string
+           format: date
+        Date_Fin_Proj: 
+           type: string
+           format: date
+        Budget_Proj: 
+           type: number
+        Statut_Proj: 
+           type: string
+        Id_Infra_Str: 
+           type: integer
+           
+    infraData:
+      type: object
+      properties:    
+        Id_Infra_Str: 
+          type: integer
+        Nom_Infra_Str:
+          type: string
+        Adr_Infra_Str:
+          type: string
+        Directeur_Infra_Str: 
+          type: string
+          
+    infraAdd:
+      type: object
+      properties:    
+        Nom_Infra_Str:
+          type: string
+        Adr_Infra_Str:
+          type: string
+        Directeur_Infra_Str: 
+          type: string
+      
+    bat:
+      type: object
+      properties:     
+        Id_Infra_Str: 
+          type: integer
+        Surface_Bat:
+          type: number
+        Nb_Etages: 
+          type: integer
+        Usages: 
+          type: string
+    modifbat:
+      type: object
+      properties:     
+        Surface_Bat:
+          type: number
+        Nb_Etages: 
+          type: integer
+        Usages: 
+          type: string
+    suiviData:
+      type: object
+      properties:
+        Id_Suiv:
+          type: integer
+        Obj_Suiv: 
+          type: string
+        Desc_Suiv:
+          type: string
+        Date_Deb_Suiv:
+          type: string
+        Date_Fin_Suiv: 
+          type: string
+        Statut_Suiv: 
+          type: string
+        Remarques_Suiv:
+          type: string
+        Id_Proj:
+          type: integer
+    suiviAdd:
+      type: object
+      properties:
+        Obj_Suiv: 
+          type: string
+        Desc_Suiv:
+          type: string
+        Date_Deb_Suiv:
+          type: string
+        Date_Fin_Suiv: 
+          type: string
+        Statut_Suiv: 
+          type: string
+        Remarques_Suiv:
+          type: string
+        Id_Proj:
+          type: integer
 tags:
   - name: authentification
-    description: Authentication operations
-  - name: membreEquipe
-    description: les membres de l'équipe pour un projet
+    description: Liste des utilisateurs
+  - name: membres Equipe
+    description: Liste des membres d'équipe
+  - name: projets
+    description: Liste des projets
+  - name: infrastructures
+    description: Liste des infrastures
+  - name: batiments administratives
+    description: Liste des bâtiments administratives
+  - name: suivis
+    description: Suivi des projets
