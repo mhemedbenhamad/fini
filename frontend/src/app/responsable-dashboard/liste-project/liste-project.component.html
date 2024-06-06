@@ -1,0 +1,49 @@
+<div class="container mt-2">
+  <h2>Liste des Projets</h2>
+
+  <div class="row">
+    <div class="col">
+      <div *ngIf="projects.length > 0; else noProjects">
+        <table class="table table-striped">
+          <!-- Table headers -->
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nom du Projet</th>
+              <th>Description</th>
+              <th>Objectifs</th>
+              <th>Date de Début</th>
+              <th>Date de Fin</th>
+              <th>Budget</th>
+              <th>Statut</th>
+              <th>Infrastructure</th>
+              <th>Actions</th>
+              <!-- Add other column headers as needed -->
+            </tr>
+          </thead>
+          <!-- Table data -->
+          <tbody>
+            <tr *ngFor="let project of projects">
+              <td>{{ project.Id_Proj }}</td>
+              <td>{{ project.Nom_Proj }}</td>
+              <td>{{ project.Desc_Proj }}</td>
+              <td>{{ project.Objectifs }}</td>
+              <td>{{ project.Date_Deb_Proj | date:'dd/MM/yyyy' }}</td>
+              <td>{{ project.Date_Fin_Proj | date:'dd/MM/yyyy' }}</td>
+              <td>{{ project.Budget_Proj }}</td>
+              <td>{{ project.Statut_Proj }}</td>
+              <td>{{ project.Id_Infra_Str }}</td>
+              <td>{{ project.Id_Res }}</td>
+              <td>
+                <!-- Add action buttons here -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noProjects>
+        <p>Aucun projet disponible pour le moment.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

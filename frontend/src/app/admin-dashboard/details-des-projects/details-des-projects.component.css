@@ -1,0 +1,38 @@
+.table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  
+  .table th, .table td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align: center;
+  }
+  
+  .table-bordered {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .thead-dark th {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  .card-body {
+    overflow-x: auto;
+  }
+  
+  .project-details h3 {
+    margin-top: 20px;
+    color: #007bff;
+  }
+  
+  .project-details .table {
+    margin-bottom: 20px;
+  }
+  

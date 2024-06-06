@@ -50,3 +50,73 @@
     background-color: #0056b3;
 }
 
+.icon-edit {
+    font-size: 24px; /* Ajustez la taille selon vos préférences */
+    color: rgb(219, 199, 86); /* Couleur pour l'icône de modification */
+  }
+  
+  .icon-delete {
+    font-size: 24px; /* Ajustez la taille selon vos préférences */
+    color: red; /* Couleur pour l'icône de suppression */
+  }
+
+
+  .table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table td,
+  .table th {
+    white-space: pre-line;
+    text-align: center;
+    font-size: 13px;
+    border: 1px solid #ddd; /* Couleur et épaisseur des bordures */
+    padding: 5px; /* Espacement du contenu à l'intérieur des cellules */
+    
+  }
+  
+  
+  .table-bordered {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .thead-dark th {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #454d55;
+  }
+  
+  .btn-link {
+    color: #007bff;
+  }
+  
+  .btn-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
+  .btn-link:focus, .btn-link:active {
+    color: #0056b3;
+  }
+  
+
+  
+  .icon-edit, .icon-delete {
+    font-size: 16px;
+  }
+  
+  
+
+
+  .filtered-column {
+    background-color: #f8d7da; /* Couleur de fond pour les colonnes filtrées */
+    color: #721c24; /* Couleur de texte pour les colonnes filtrées */
+  }
+  
+    

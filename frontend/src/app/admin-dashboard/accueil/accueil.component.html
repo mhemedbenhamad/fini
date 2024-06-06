@@ -1,0 +1,125 @@
+<div class="col-md-12 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body performance-indicator-card">
+      <div class="d-sm-flex">
+        <h3 class="font-weight-semibold">Report</h3>
+      </div>
+      <div class="row report-inner-cards-wrapper mt-3">
+        <div class="col-md-3 col-xl-3 report-inner-card">
+          <div class="inner-card-text">
+            <span class="report-title">Projets en cours</span>
+            <h3>{{ countProjects }}</h3>
+            <span class="report-count">Projets</span>
+          </div>
+          <div class="inner-card-icon bg-success">
+            <i class="icon-folder-alt"></i>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-xl-3 report-inner-card">
+          <div class="inner-card-text">
+            <span class="report-title">Nombre d'utilisateurs</span>
+            <h4>{{ userCount }}</h4>
+            <span class="report-count">Utilisateurs</span>
+          </div>
+          <div class="inner-card-icon bg-danger">
+            <i class="icon-people"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+   
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="row">
+    <div class="col-md-4 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <div class="chart-container">
+            <canvas id="projectsByYearChart" style="width: 100%; height: 400px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <div class="chart-container1">
+            <canvas id="delayedProjectsChart" style="width: 120%; "></canvas>
+            <div class="text-center mt-4">
+              <p class="mb-1">Total Number of Projects: {{ countProjects }}</p>
+              <p class="mb-0">Number of Delayed Projects: {{ delayedProjectsCount }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <div class="chart-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d39783.505894228336!2d8.974488342150632!3d33.70796425061988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2stn!4v1716314928624!5m2!1sfr!2stn" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+   
+      
+ 
+    
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="font-weight-semibold">SUIVI DES PROJECTS</h3>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Projet</th>
+                  <th>Date de début</th>
+                  <th>Date de fin</th>
+                  <th>Date de suivi</th>
+                  <th>Remarque</th>
+                  <th>Progression</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let project of suiviData">
+                  <td>{{ project.Nom_Proj }}</td>
+                  <td>{{ project.Date_Deb_Proj | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ project.Date_Fin_Proj | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ project.Date_Fin_Suiv | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ project.Remarques_Suiv }}</td>
+                  <td>
+                    <div class="progress">
+                      <div 
+                        class="progress-bar progress-bar-striped progress-bar-lg" 
+                        role="progressbar" 
+                        [style.width.%]="calculateProjectLength(project.Date_Deb_Proj, project.Date_Fin_Proj, project.Date_Fin_Suiv)">
+                        <span class="percentage-text">{{ calculateProjectLength(project.Date_Deb_Proj, project.Date_Fin_Proj, project.Date_Fin_Suiv) | number: '1.0-0' }}%</span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+

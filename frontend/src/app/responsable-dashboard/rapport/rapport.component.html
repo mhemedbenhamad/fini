@@ -1,0 +1,60 @@
+<!-- rapport.component.html -->
+<div class="container mt-4 border p-4" id="printableArea">
+    <!-- En-tête du rapport -->
+    <div class="row">
+      <div class="col">
+        <h2 class="text-center">Rapport de Suivi de Projet</h2>
+      </div>
+    </div>
+  
+    <!-- Date et heure du rapport -->
+    <div class="row mt-3">
+      <div class="col">
+        <p>Date du rapport: {{ currentDate | date:'dd/MM/yyyy' }}</p>
+        <p>Heure du rapport: {{ currentDate | date:'HH:mm:ss' }}</p>
+      </div>
+    </div>
+  
+    <!-- Formulaire de sélection du projet -->
+    <div class="row mt-3">
+      <div class="col">
+        <div class="form-group">
+          <label for="nomProjet">Nom du Projet:</label>
+          <select class="form-control" id="nomProjet" [(ngModel)]="nomProjet" (change)="selectProjectDetails()">
+            <option value="">Sélectionner un projet</option>
+            <option *ngFor="let projet of projets" [value]="projet.Nom_Proj">{{ projet.Nom_Proj }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Afficher les détails du projet sélectionné -->
+    <div *ngIf="projetSelectionne" class="row mt-3">
+      <div class="col">
+        <h3>Détails du Projet</h3>
+        <div class="border p-3"> <!-- Ajout du cadre autour de la zone de texte -->
+          <p><strong>Nom:</strong> {{ projetSelectionne.Nom_Proj }}</p>
+          <p><strong>Description:</strong> {{ projetSelectionne.Desc_Proj }}</p>
+          <p><strong>Objectifs:</strong> {{ projetSelectionne.Objectifs }}</p>
+          <p><strong>Date de Début:</strong> {{ projetSelectionne.Date_Deb_Proj | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Date de Fin:</strong> {{ projetSelectionne.Date_Fin_Proj | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Budget:</strong> {{ projetSelectionne.Budget_Proj }}</p>
+          <p><strong>Statut:</strong> {{ projetSelectionne.Statut_Proj }}</p>
+          <!-- Ajoutez d'autres détails du projet au besoin -->
+  
+          <!-- Ajouter une zone de texte -->
+          <div class="form-group">
+            <label for="commentaire">Commentaire:</label>
+            <textarea class="form-control" id="commentaire" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Bouton pour enregistrer le PDF -->
+    <div class="row mt-3">
+      <div class="col text-center">
+        <button class="btn btn-primary" (click)="enregistrerPDF()">Enregistrer PDF</button>
+      </div>
+    </div>
+  </div>

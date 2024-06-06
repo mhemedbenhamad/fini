@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 export interface LoginResponse {
+  token: string;
+  id: number;
   username: string;
   role: string;
 }
@@ -20,6 +22,7 @@ export class AuthService {
     return this.http.post<LoginResponse>('http://localhost:3000/login/api/login', { username, password })
       .pipe(
         map((response: LoginResponse) => {
+          localStorage.setItem('token', response.token);
           this.loggedInUser = response;
           return true;
         }),
@@ -31,11 +34,41 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!this.loggedInUser;
+    return !!localStorage.getItem('token');
   }
 
   getLoggedInUser(): LoginResponse | null {
     return this.loggedInUser;
+  }
+
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
+  getProfile(): Observable<LoginResponse | null> {
+    return this.http.get<LoginResponse>('http://localhost:3000/login/api/profile', { headers: this.getHeaders() })
+      .pipe(
+        map((response: LoginResponse) => {
+          if (!response) {
+            console.error('Profil utilisateur non trouvé');
+            return null;
+          }
+          return response;
+        }),
+        catchError((error) => {
+          console.error('Erreur lors de la récupération du profil de l\'utilisateur:', error);
+          return of(null);
+        })
+      );
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this.loggedInUser = null;
   }
 
   isAdmin(): boolean {
@@ -52,5 +85,9 @@ export class AuthService {
 
   isSchool(): boolean {
     return this.loggedInUser?.role === 'school';
+  }
+
+  isGestionnaireProjet(): boolean {
+    return this.loggedInUser?.role === 'gestionnaire-projet';
   }
 }

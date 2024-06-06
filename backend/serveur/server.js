@@ -1,15 +1,20 @@
-//server.js
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors');
-
+const bcrypt = require('bcryptjs');
 
 // Charger le fichier de configuration
 const config = require('./config'); 
 
-//charger les fichiers js
+// Initialiser l'application express
+const app = express();
+const port = 3000;
+
+// Configurer le dossier statique pour les uploads
+app.use('../uploads', express.static('uploads'));
+
+// Charger les fichiers js des routes
 const amenagement = require('../Api/amenagement');
 const batimentAdmin = require('../Api/batimentAdmin');
 const besoinsEtabSco = require('../Api/besoinsEtabSco');
@@ -31,14 +36,14 @@ const reglementDefin = require('../Api/reglementDefin');
 const resources = require('../Api/resources');
 const responsableProjet = require('../Api/responsableProjet');
 const restaurant = require('../Api/restaurant');
+const role = require('../Api/role');
 const suivi = require('../Api/suivi');
 
+// Middleware
+// Middleware
+app.use(bodyParser.json({ limit: '150mb' }));
+app.use(bodyParser.urlencoded({ limit: '150mb', extended: true }));
 
-const app = express();
-const port = 3000;
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use((req, res, next) => {
@@ -72,8 +77,8 @@ app.use('/reglement_defin', reglementDefin);
 app.use('/ressources', resources);
 app.use('/responsable_projet', responsableProjet);
 app.use('/restaurant', restaurant);
+app.use('/roles', role);
 app.use('/suivi', suivi);
-
 
 // Utiliser les paramètres de connexion à la base de données depuis le fichier de configuration
 const con = mysql.createConnection(config.database);
@@ -87,8 +92,7 @@ con.connect(err => {
   }
 });
 
-//serveur en écoute
+// Serveur en écoute
 app.listen(port, () => {
   console.log(`Serveur en écoute sur le port ${port}`);
 });
-

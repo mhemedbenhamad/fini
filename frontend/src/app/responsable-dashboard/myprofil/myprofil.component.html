@@ -1,0 +1,39 @@
+<div class="padding">
+  <div class="col-md-12">
+    <!-- Column -->
+    <div class="card">
+      <img class="card-img-top" src="https://i.imgur.com/K7A78We.jpg" alt="Card image cap">
+      <div class="card-body little-profile text-center">
+        <div class="pro-img">
+          <img *ngIf="userImage" class="img-md rounded-circle ms-2" [src]="userImage" alt="Profile image" width="200" height="200">
+        </div>
+        <h3 class="m-b-0">{{ userProfile.username }}</h3>
+        <p>{{ userProfile.role }}</p>
+        <a href="javascript:void(0)" class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded" (click)="showPasswordForm = !showPasswordForm">Réinitialiser le mot de passe</a>
+        
+        <form *ngIf="showPasswordForm" (submit)="resetPassword()">
+          <div class="mb-3">
+            <label for="oldPassword" class="form-label">Ancien mot de passe</label>
+            <input type="password" class="form-control" id="oldPassword" [(ngModel)]="oldPassword" name="oldPassword" required>
+          </div>
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">Nouveau mot de passe</label>
+            <input type="password" class="form-control" id="newPassword" [(ngModel)]="newPassword" name="newPassword" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Réinitialiser</button>
+        </form>
+
+        <!-- Message de succès -->
+        <div *ngIf="successMessage" class="alert alert-success mt-3">
+          {{ successMessage }}
+        </div>
+
+        <!-- Message d'erreur -->
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+          {{ errorMessage }}
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

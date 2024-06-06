@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamMemberService } from '../../membre.service';
+import { BackendService } from '../../user.data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -14,7 +15,11 @@ export class MembreEquipeComponent implements OnInit {
   memberForm: FormGroup;
   selectedMember: any;
 
-  constructor(private teamMemberService: TeamMemberService, private formBuilder: FormBuilder) {
+  constructor(
+    private teamMemberService: TeamMemberService, 
+    private backendService: BackendService,
+    private formBuilder: FormBuilder
+  ) {
     this.memberForm = this.formBuilder.group({
       Id_Mem_Eq: [''],
       Nom_Mem_Eq: ['', Validators.required],
@@ -81,6 +86,21 @@ export class MembreEquipeComponent implements OnInit {
     }
   }
 
+  updateMemberRole(member: any): void {
+    const role = member.role; // Récupérer le nouveau rôle du membre
+    const userId = member.login_id_log; // Utiliser l'ID de connexion comme ID utilisateur
+
+    this.backendService.updateUserRole(userId, role).subscribe(
+      () => {
+        console.log('Role updated successfully');
+        this.getAllTeamMembers(); // Actualiser la liste des membres
+      },
+      error => {
+        console.log('Error updating role:', error);
+      }
+    );
+  }
+
   deleteTeamMember(memberId: number): void {
     this.teamMemberService.deleteTeamMember(memberId).subscribe(
       () => {
@@ -91,25 +111,20 @@ export class MembreEquipeComponent implements OnInit {
       }
     );
   }
-  
-  // Méthode pour afficher le formulaire d'ajout
-  showAddForm() {
-    this.memberForm.reset(); // Réinitialiser le formulaire avant de l'afficher
+
+  showAddForm(): void {
     this.isAddFormVisible = true;
     this.isEditFormVisible = false;
   }
 
-   // Méthode pour annuler l'ajout
-   cancelAdd(): void {
-    this.memberForm.reset(); // Réinitialiser le formulaire
-    this.isAddFormVisible = false; // Masquer le formulaire d'ajout
+  cancelAdd(): void {
+    this.isAddFormVisible = false;
+    this.memberForm.reset();
   }
 
-  // Méthode pour annuler la modification
   cancelEdit(): void {
-    this.memberForm.reset(); // Réinitialiser le formulaire
-    this.selectedMember = null; // Réinitialiser le membre sélectionné
-    this.isEditFormVisible = false; // Masquer le formulaire de modification
+    this.isEditFormVisible = false;
+    this.selectedMember = null;
+    this.memberForm.reset();
   }
-
 }

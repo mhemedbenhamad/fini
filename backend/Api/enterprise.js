@@ -38,6 +38,22 @@ router.post('/', (req, res) => {
   });
 });
 
+// Update an enterprise consultancy
+router.put('/:id', (req, res) => {
+  const enterpriseId = req.params.id;
+  const { Nom_Entr_Cons, Adr_Entr_Cons, Resp_Entr_Cons, Tel_Entr_Cons, Domaine_Entr_Cons, Notes_Entr_Cons } = req.body;
+  const updatedEnterpriseCons = { Nom_Entr_Cons, Adr_Entr_Cons, Resp_Entr_Cons, Tel_Entr_Cons, Domaine_Entr_Cons, Notes_Entr_Cons };
+  con.query('UPDATE entreprise_cons SET ? WHERE Id_Entr_Cons = ?', [updatedEnterpriseCons, enterpriseId], (err, result) => {
+    if (err) {
+      res.status(500).json({ error: 'Failed to update enterprise consultancy' });
+    } else if (result.affectedRows === 0) {
+      res.status(404).json({ error: 'Enterprise consultancy not found' });
+    } else {
+      res.json({ message: 'Enterprise consultancy updated successfully' });
+    }
+  });
+});
+
 // Delete an enterprise consultancy
 router.delete('/:id', (req, res) => {
   const enterpriseId = req.params.id;
@@ -48,6 +64,21 @@ router.delete('/:id', (req, res) => {
       res.status(404).json({ error: 'Enterprise consultancy not found' });
     } else {
       res.json({ message: 'Enterprise consultancy deleted successfully' });
+    }
+  });
+});
+
+// Route pour rechercher des entreprises par nom
+router.get('/search', (req, res) => {
+  const name = req.query.name;
+  if (!name) {
+    return res.status(400).json({ error: 'Name query parameter is required' });
+  }
+  con.query('SELECT * FROM entreprise_cons WHERE Nom_Entr_Cons LIKE ?', [`%${name}%`], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: 'Failed to search enterprise consultancies' });
+    } else {
+      res.json(results);
     }
   });
 });

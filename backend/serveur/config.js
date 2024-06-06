@@ -1,5 +1,3 @@
-// serveur/config.js
-
 module.exports = {
   database: {
     host: 'localhost',
@@ -7,8 +5,5 @@ module.exports = {
     password: '',
     database: 'bd_crm'
   },
-
-  jwtSecret: 'vRga8INA1hyu59sa'
+  jwtSecret: 'your_secret_key'  
 };
-  
-  

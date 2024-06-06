@@ -1,0 +1,192 @@
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h2>Sélectionner un Projet</h2>
+        <form (ngSubmit)="getProjectDetails()" #projectForm="ngForm">
+          <div class="form-group">
+            <label for="projectId">ID du Projet :</label>
+            <input type="number" class="form-control" id="projectId" name="projectId" [(ngModel)]="selectedProjectId" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Afficher les Détails</button>
+        </form>
+
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+          {{ errorMessage }}
+        </div>
+
+        <div *ngIf="projectDetails" class="project-details mt-3">
+          <h2>Détails du Projet</h2>
+
+          <div *ngFor="let detail of projectDetails">
+            <h3>Projet</h3>
+            <table class="table table-bordered table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Id</th>
+                  <th>Nom Projet</th>
+                  <th>Description Projet</th>
+                  <th>Objectifs</th>
+                  <th>Date Début Projet</th>
+                  <th>Date Fin Projet</th>
+                  <th>Budget Projet</th>
+                  <th>Statut Projet</th>
+                  <th>Id Infrastructure</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ detail.projet.Id_Proj }}</td>
+                  <td>{{ detail.projet.Nom_Proj }}</td>
+                  <td>{{ detail.projet.Desc_Proj }}</td>
+                  <td>{{ detail.projet.Objectifs }}</td>
+                  <td>{{ detail.projet.Date_Deb_Proj | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ detail.projet.Date_Fin_Proj | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ detail.projet.Budget_Proj }}</td>
+                  <td>{{ detail.projet.Statut_Proj }}</td>
+                  <td>{{ detail.projet.Id_Infra_Str }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Études</h3>
+            <table class="table table-bordered table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Id</th>
+                  <th>Objectif Étude</th>
+                  <th>Description Étude</th>
+                  <th>Date Début Étude</th>
+                  <th>Date Fin Étude</th>
+                  <th>Statut Étude</th>
+                  <th>Remarques Étude</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let etude of detail.etudes">
+                  <td>{{ etude.Id_Etu }}</td>
+                  <td>{{ etude.Obj_Etu }}</td>
+                  <td>{{ etude.Desc_Etu }}</td>
+                  <td>{{ etude.Date_Deb_Etu | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ etude.Date_Fin_Etu | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ etude.Statut_Etu }}</td>
+                  <td>{{ etude.Remarques_Etu }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Dépouillement</h3>
+            <table class="table table-bordered table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Id</th>
+                  <th>Objectif Dépouillement</th>
+                  <th>Description Dépouillement</th>
+                  <th>Date Début Dépouillement</th>
+                  <th>Date Fin Dépouillement</th>
+                  <th>Statut Dépouillement</th>
+                  <th>Remarques Dépouillement</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let depouillement of detail.depouillement">
+                  <td>{{ depouillement.Id_Dep }}</td>
+                  <td>{{ depouillement.Obj_Dep }}</td>
+                  <td>{{ depouillement.Desc_Dep }}</td>
+                  <td>{{ depouillement.Date_Deb_Dep | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ depouillement.Date_Fin_Dep | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ depouillement.Statut_Dep }}</td>
+                  <td>{{ depouillement.Remarques_Dep }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Entreprise de Conseil</h3>
+            <table class="table table-bordered table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Id</th>
+                  <th>Nom Entreprise</th>
+                  <th>Adresse</th>
+                  <th>Responsable</th>
+                  <th>Téléphone</th>
+                  <th>Domaine</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let entreprise of detail.entreprise_cons">
+                  <td>{{ entreprise.Id_Entr_Cons }}</td>
+                  <td>{{ entreprise.Nom_Entr_Cons }}</td>
+                  <td>{{ entreprise.Adr_Entr_Cons }}</td>
+                  <td>{{ entreprise.Resp_Entr_Cons }}</td>
+                  <td>{{ entreprise.Tel_Entr_Cons }}</td>
+                  <td>{{ entreprise.Domaine_Entr_Cons }}</td>
+                  <td>{{ entreprise.Notes_Entr_Cons }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Suivi</h3>
+            <table class="table table-bordered table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Id</th>
+                  <th>Objectif Suivi</th>
+                  <th>Description Suivi</th>
+                  <th>Date Début Suivi</th>
+                  <th>Date Fin Suivi</th>
+                  <th>Statut Suivi</th>
+                  <th>Remarques Suivi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let suivi of detail.suivi">
+                  <td>{{ suivi.Id_Suiv }}</td>
+                  <td>{{ suivi.Obj_Suiv }}</td>
+                  <td>{{ suivi.Desc_Suiv }}</td>
+                  <td>{{ suivi.Date_Deb_Suiv | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ suivi.Date_Fin_Suiv | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ suivi.Statut_Suiv }}</td>
+                  <td>{{ suivi.Remarques_Suiv }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Règlement Défini</h3>
+            <table class="table table-bordered table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Id</th>
+                  <th>Date Règlement</th>
+                  <th>Contrats Fin</th>
+                  <th>Conformité Règlement</th>
+                  <th>Autorisation Règlement</th>
+                  <th>Budget Finalisé</th>
+                  <th>Échéance Conformité</th>
+                  <th>Livrable Validé</th>
+                  <th>Statut Règlement</th>
+                  <th>Remarques Règlement</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let reglement of detail.reglement_defin">
+                  <td>{{ reglement.Id_Reg }}</td>
+                  <td>{{ reglement.Date_Reg | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ reglement.Contrats_Fin }}</td>
+                  <td>{{ reglement.Conform_Reg }}</td>
+                  <td>{{ reglement.Autorisation_Reg }}</td>
+                  <td>{{ reglement.Budget_Finalise }}</td>
+                  <td>{{ reglement.Echeance_Conf }}</td>
+                  <td>{{ reglement.Livrable_Valide }}</td>
+                  <td>{{ reglement.Statut_Reg }}</td>
+                  <td>{{ reglement.Remarques_Reg }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

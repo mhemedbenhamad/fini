@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   username: string = '';
-  password: string = ''; // Make sure password is defined as a string
+  password: string = '';
   errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -28,6 +28,8 @@ export class LoginComponent {
               this.router.navigate(['/member-equipe']);
             } else if (this.authService.isSchool()) {
               this.router.navigate(['/school']);
+            } else if (this.authService.isGestionnaireProjet()) {
+              this.router.navigate(['/gestionnaire-projet']);
             } else {
               // Cas par défaut (le rôle n'est pas valide)
               this.errorMessage = 'Rôle non valide.';

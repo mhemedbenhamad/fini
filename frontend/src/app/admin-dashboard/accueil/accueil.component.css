@@ -1,0 +1,34 @@
+.progress {
+  position: relative; /* Assurez-vous que le marqueur de suivi est positionné correctement */
+  height: 30px; /* Hauteur de la barre de progression */
+  background-color: #b6acac; /* Couleur de fond de la barre de progression */
+  border-radius: 5px; /* Coins arrondis */
+  overflow: hidden; /* Masquer le débordement */
+}
+
+.progress-bar {
+  height: 100%; /* La barre de progression remplit la hauteur de son conteneur */
+  background-color: #007bff; /* Couleur de la barre de progression */
+  color: white; /* Couleur du texte */
+  text-align: center; /* Alignement du texte */
+  line-height: 30px; /* Hauteur de ligne centrale */
+  transition: width 1s ease; /* Animation de la largeur */
+}
+
+.progress-bar .percentage-text {
+  font-size: 16px; /* Taille du texte du pourcentage */
+}
+
+
+.chart-container {
+  position: relative;
+  margin: auto;
+
+
+}
+
+.chart-container1 {
+
+  height: 400px;
+
+}

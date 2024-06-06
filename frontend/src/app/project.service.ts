@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProjectService {
-  private baseUrl = 'http://localhost:3000/project'; // Ensure to update the URL with your backend address
+  private baseUrl = 'http://localhost:3000/project';
 
   constructor(private http: HttpClient) { }
 
@@ -52,14 +52,55 @@ export class ProjectService {
         catchError(this.handleError)
       );
   }
+
+  getProjectCountByYear(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/count_annee`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  searchProjects(query: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/search?keyword=${query}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getProjectsInProgress(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/en_cours`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getProjectDetails(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/details/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getProjectDetailsByName(name: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/details/nom/${name}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getDelayedProjectsCount(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/retards/par_mois_annee`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'An error occurred';
+    let errorMessage = 'Une erreur est survenue';
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMessage = `Error: ${error.error.message}`;
+      errorMessage = `Erreur : ${error.error.message}`;
     } else {
-      // Server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = `Code d'erreur : ${error.status}\nMessage : ${error.message}`;
     }
     console.error(errorMessage);
     return throwError(errorMessage);

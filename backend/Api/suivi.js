@@ -14,6 +14,22 @@ con.connect((err) => {
   console.log('MySQL Suivi connecté');
 });
 
+
+// Add a new route to fetch data from both suivi and projet tables
+router.get('/suivi-projet', (req, res) => {
+  con.query(`
+    SELECT s.Date_Fin_Suiv, s.Remarques_Suiv, p.Nom_Proj, p.Date_Deb_Proj, p.Date_Fin_Proj
+    FROM suivi s
+    JOIN projet p ON s.Id_Proj = p.Id_Proj
+  `, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: 'Failed to fetch data from suivi and projet tables' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 // Get all suivi entries
 router.get('/', (req, res) => {
   con.query('SELECT * FROM suivi', (err, results) => {
@@ -24,6 +40,7 @@ router.get('/', (req, res) => {
     }
   });
 });
+
 
 // Add a new suivi entry
 router.post('/', (req, res) => {
@@ -81,6 +98,7 @@ router.get('/:id', (req, res) => {
     }
   });
 });
+
 
 
 module.exports = router;

@@ -1,123 +1,129 @@
-<div class="container">
-  <button (click)="showAddForm()" class="btn btn-sm btn-success">Ajouter projet</button>
-
-  <h2>Liste des membres d'équipe</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Nom</th>
-        <th scope="col">Prénom</th>
-        <th scope="col">Adresse</th>
-        <th scope="col">Email</th>
-        <th scope="col">Téléphone</th>
-        <th scope="col">Poste</th>
-        <th scope="col">ID de connexion</th>
-        <th scope="col">Nom d'utilisateur</th>
-        <th scope="col">Mot de passe</th>
-        <th scope="col">Rôle</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let member of members">
-        <td>{{ member.Nom_Mem_Eq }}</td>
-        <td>{{ member.Pren_Mem_Eq }}</td>
-        <td>{{ member.Adr_Mem_Eq }}</td>
-        <td>{{ member.Email_Mem_Eq }}</td>
-        <td>{{ member.Tel_Mem_Eq }}</td>
-        <td>{{ member.Poste_Mem_eq }}</td>
-        <td>{{ member.login_id_log }}</td>
-        <td>{{ member.username }}</td>
-        <td>{{ member.password }}</td>
-        <td>{{ member.role }}</td>
-        <td>
-          <button class="btn btn-primary btn-sm" (click)="selectMember(member)">Modifier</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteTeamMember(member.Id_Mem_Eq)">Supprimer</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="container">
-  <div class="col-md-4">
-    <!-- Formulaire pour ajouter un membre d'équipe -->
-    <div class="card floating-form" *ngIf="isAddFormVisible">
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
       <div class="card-body">
-        <h2>Ajouter un membre d'équipe</h2>
-        <form [formGroup]="memberForm" class="mb-4">
-          <div class="form-group">
-            <label>Nom:</label>
-            <input type="text" formControlName="Nom_Mem_Eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Prénom:</label>
-            <input type="text" formControlName="Pren_Mem_Eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Adresse:</label>
-            <input type="text" formControlName="Adr_Mem_Eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Email:</label>
-            <input type="email" formControlName="Email_Mem_Eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Téléphone:</label>
-            <input type="text" formControlName="Tel_Mem_Eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Poste:</label>
-            <input type="text" formControlName="Poste_Mem_eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>ID de connexion:</label>
-            <input type="text" formControlName="login_id_log" class="form-control">
-          </div>
-          <button type="button" class="btn btn-success" (click)="addTeamMember()">Ajouter</button>
-          <button type="button" class="btn btn-secondary" (click)="cancelAdd()">Annuler</button>
+        <button (click)="showAddForm()" class="btn btn-sm btn-success">Ajouter projet</button>
 
-        </form>
+        <h2>Liste des membres d'équipe</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">Adresse</th>
+              <th scope="col">Email</th>
+              <th scope="col">Téléphone</th>
+              <th scope="col">Poste</th>
+              <th scope="col">login_id</th>
+              <th scope="col">Nom user</th>
+              <th scope="col">Rôle</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let member of members">
+              <td>{{ member.Nom_Mem_Eq }}</td>
+              <td>{{ member.Pren_Mem_Eq }}</td>
+              <td>{{ member.Adr_Mem_Eq }}</td>
+              <td>{{ member.Email_Mem_Eq }}</td>
+              <td>{{ member.Tel_Mem_Eq }}</td>
+              <td>{{ member.Poste_Mem_eq }}</td>
+              <td>{{ member.login_id_log }}</td>
+              <td>{{ member.username }}</td>
+              <td>
+                <select [(ngModel)]="member.role" (change)="updateMemberRole(member)">
+                  <option value="responsable">Responsable</option>
+                  <option value="member_equipe">Membre Équipe</option>
+                </select>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm" (click)="selectMember(member)">Modifier</button>
+                <button class="btn btn-danger btn-sm" (click)="deleteTeamMember(member.Id_Mem_Eq)">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-    <!-- Formulaire pour modifier un membre d'équipe -->
-    <div class="card floating-form" *ngIf="selectedMember">
-      <div class="card-body">
-        <h2>Modifier un membre d'équipe</h2>
-        <form [formGroup]="memberForm" class="mb-4">
-          <div class="form-group">
-            <label>Nom:</label>
-            <input type="text" formControlName="Nom_Mem_Eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Prénom:</label>
-            <input type="text" formControlName="Pren_Mem_Eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Adresse:</label>
-            <input type="text" formControlName="Adr_Mem_Eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Email:</label>
-            <input type="email" formControlName="Email_Mem_Eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Téléphone:</label>
-            <input type="text" formControlName="Tel_Mem_Eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Poste:</label>
-            <input type="text" formControlName="Poste_Mem_eq" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>ID de connexion:</label>
-            <input type="text" formControlName="login_id_log" class="form-control">
-          </div>
-          <button type="button" class="btn btn-primary" (click)="updateTeamMember()">Modifier</button>
-          <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Annuler</button>
 
-          
-        </form>
+      <div class="container mt-4">
+        <div class="col-md-4">
+          <!-- Formulaire pour ajouter un membre d'équipe -->
+          <div class="card floating-form" *ngIf="isAddFormVisible">
+            <div class="card-body">
+              <h2>Ajouter un membre d'équipe</h2>
+              <form [formGroup]="memberForm" class="mb-4">
+                <div class="form-group">
+                  <label>Nom:</label>
+                  <input type="text" formControlName="Nom_Mem_Eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Prénom:</label>
+                  <input type="text" formControlName="Pren_Mem_Eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Adresse:</label>
+                  <input type="text" formControlName="Adr_Mem_Eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Email:</label>
+                  <input type="email" formControlName="Email_Mem_Eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Téléphone:</label>
+                  <input type="text" formControlName="Tel_Mem_Eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Poste:</label>
+                  <input type="text" formControlName="Poste_Mem_eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>ID de connexion:</label>
+                  <input type="text" formControlName="login_id_log" class="form-control">
+                </div>
+                <button type="button" class="btn btn-success" (click)="addTeamMember()">Ajouter</button>
+                <button type="button" class="btn btn-secondary" (click)="cancelAdd()">Annuler</button>
+              </form>
+            </div>
+          </div>
+          <!-- Formulaire pour modifier un membre d'équipe -->
+          <div class="card floating-form" *ngIf="isEditFormVisible">
+            <div class="card-body">
+              <h2>Modifier le membre d'équipe</h2>
+              <form [formGroup]="memberForm" class="mb-4">
+                <div class="form-group">
+                  <label>Nom:</label>
+                  <input type="text" formControlName="Nom_Mem_Eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Prénom:</label>
+                  <input type="text" formControlName="Pren_Mem_Eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Adresse:</label>
+                  <input type="text" formControlName="Adr_Mem_Eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Email:</label>
+                  <input type="email" formControlName="Email_Mem_Eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Téléphone:</label>
+                  <input type="text" formControlName="Tel_Mem_Eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Poste:</label>
+                  <input type="text" formControlName="Poste_Mem_eq" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>ID de connexion:</label>
+                  <input type="text" formControlName="login_id_log" class="form-control">
+                </div>
+                <button type="button" class="btn btn-success" (click)="updateTeamMember()">Mettre à jour</button>
+                <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Annuler</button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
